@@ -1,35 +1,67 @@
-import { useWeb3React } from '@web3-react/core';
-import { InjectedConnector } from '@web3-react/injected-connector'
-const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42],
-})
+import { useEffect, useState } from 'react';
+import Web3 from 'web3';
+import Accordion from 'react-bootstrap/Accordion';
+
+import CPF_ABI from '../abis';
+
+type Project = {
+  currentFundLevel: number,
+  description: string,
+  fundingNeeded: number,
+  id: number,
+  name: string,
+  thresholdBlock: number,
+}
 
 function Projects() {
-    const { active, account, library, connector, activate, deactivate } = useWeb3React();
+  const [loading, setLoading] = useState(true);
+  const [projects] = useState<Array<Project>>([]);
 
-    async function connect() {
-        try {
-          await activate(injected)
-        } catch (ex) {
-          console.log(ex)
-        }
-      }
+  useEffect(() => {
+    getProjects();
+  })
 
-      async function disconnect() {
-        try {
-          deactivate()
-        } catch (ex) {
-          console.log(ex)
-        }
-      }
+  async function getProjects() {
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    const cpf = new web3.eth.Contract(CPF_ABI as any, "0x23b111A56e552b6EceE65b4d5Cc76054400694E5");
+    const numProjects = await cpf.methods.projectCount().call();
+    for (let i = 0; i < numProjects; i++) {
+      let project = await cpf.methods.projects(i).call();
+      projects.push(project);
+    }
+    setLoading(false);
+  }
 
+  let projectList = projects != null && projects.length > 0
+    ? projects.map((project) => {
       return (
-        <div className="flex flex-col items-center justify-center">
-          <button onClick={connect} className="py-2 mt-20 mb-4 text-lg font-bold text-white rounded-lg w-56 bg-blue-600 hover:bg-blue-800">Connect to MetaMask</button>
-          {active ? <span>Connected with <b>{account}</b></span> : <span>Not connected</span>}
-          <button onClick={disconnect} className="py-2 mt-20 mb-4 text-lg font-bold text-white rounded-lg w-56 bg-blue-600 hover:bg-blue-800">Disconnect</button>
-        </div>
+        <Accordion.Item eventKey={project.id.toString()}>
+          <Accordion.Header>{project.name}</Accordion.Header>
+          <Accordion.Body>
+            {project.description}
+          </Accordion.Body>
+        </Accordion.Item>
       )
+    })
+    : null;
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center">
+        Loading
+      </div>
+    )
+  }
+  return (
+    <div>
+      <div className="d-flex flex-column align-items-center">
+          <h1>Projects</h1>
+          <Accordion>
+        {projectList}
+        </Accordion>
+      </div>
+    </div>
+  )
 }
 
 export default Projects;

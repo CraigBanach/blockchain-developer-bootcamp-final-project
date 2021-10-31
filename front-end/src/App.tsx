@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,26 +5,19 @@ import {
   Link
 } from "react-router-dom";
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { Web3ReactProvider } from '@web3-react/core';
-import { ethers } from 'ethers';
 
 import Projects from './pages/Projects';
 
-function About() {
-  return <h2>About</h2>;
+function AddProject() {
+  return <h2>Add Project</h2>;
 }
 
 function Users() {
   return <h2>Users</h2>;
 }
 
-function getLibrary(provider?: any, connector?: any): any {
-  return new ethers.providers.Web3Provider(provider);
-}
-
 function App() {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
       <Router>
         <div>
         <Navbar bg="light" expand="lg">
@@ -35,7 +27,7 @@ function App() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Link className="nav-item nav-link" to="/">Projects</Link>
-                <Link className="nav-item nav-link" to="/about">About</Link>
+                <Link className="nav-item nav-link" to="/addProject">Add Project</Link>
                 <Link className="nav-item nav-link" to="/users">Users</Link>
               </Nav>
             </Navbar.Collapse>
@@ -45,8 +37,8 @@ function App() {
           {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
-            <Route path="/about">
-              <About />
+            <Route path="/addProject">
+              <AddProject />
             </Route>
             <Route path="/users">
               <Users />
@@ -57,7 +49,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-    </Web3ReactProvider>
   );
 }
 
