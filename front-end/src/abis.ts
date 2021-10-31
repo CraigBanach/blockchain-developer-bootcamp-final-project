@@ -1,4 +1,4 @@
-export default [
+const abi = [
     {
       "inputs": [],
       "name": "projectCount",
@@ -170,3 +170,5 @@ export default [
       "type": "function"
     }
   ];
+
+export default abi;

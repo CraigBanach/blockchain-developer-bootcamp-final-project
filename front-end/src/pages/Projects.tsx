@@ -1,60 +1,47 @@
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
+import Accordion from 'react-bootstrap/Accordion';
+
 import CPF_ABI from '../abis';
+
+type Project = {
+  currentFundLevel: number,
+  description: string,
+  fundingNeeded: number,
+  id: number,
+  name: string,
+  thresholdBlock: number,
+}
 
 function Projects() {
   const [loading, setLoading] = useState(true);
-  const [projects, setProjects] = useState<Array<any>>();
+  const [projects] = useState<Array<Project>>([]);
 
   useEffect(() => {
-    loadBlockchainData();
-  }, [])
+    getProjects();
+  })
 
-  async function loadBlockchainData() {
+  async function getProjects() {
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    const accounts = await web3.eth.getAccounts();
-    const cpf = new web3.eth.Contract(CPF_ABI as any, "0x9f148817fd7060C898EAA19ef758Ca9a33902759");
-    console.log(await cpf.methods.projectCount().call());
-    const projects = await cpf.methods.projects(0).call()
-    console.log(projects);
-    setProjects([projects, projects]);
+    const cpf = new web3.eth.Contract(CPF_ABI as any, "0x23b111A56e552b6EceE65b4d5Cc76054400694E5");
+    const numProjects = await cpf.methods.projectCount().call();
+    for (let i = 0; i < numProjects; i++) {
+      let project = await cpf.methods.projects(i).call();
+      projects.push(project);
+    }
     setLoading(false);
   }
 
-  // const [cpf, setCpf] = useState(new ethers.Contract(
-  //   "0x9f148817fd7060C898EAA19ef758Ca9a33902759",
-  //   CPF_ABI)
-  // );
-  // //const [projectCount, setProjectCount] = useState();
-
-  // async function getProjectCount() {
-  //   try {
-  //     const data = await cpf.projectCount().call();
-  //     console.log('data: ', data);
-  //   } catch (err) {
-  //     console.log("Error: ", err)
-  //   }
-  // }
-
-  async function connect() {
-    try {
-      // await activate(injected)
-    } catch (ex) {
-      console.log(ex)
-    }
-  }
-
-  async function disconnect() {
-    try {
-      // deactivate()
-    } catch (ex) {
-      console.log(ex)
-    }
-  }
-
   let projectList = projects != null && projects.length > 0
-    ? projects.map((project: { id: number }) => {
-      return (<li key={project.id}>{project.id}</li>)
+    ? projects.map((project) => {
+      return (
+        <Accordion.Item eventKey={project.id.toString()}>
+          <Accordion.Header>{project.name}</Accordion.Header>
+          <Accordion.Body>
+            {project.description}
+          </Accordion.Body>
+        </Accordion.Item>
+      )
     })
     : null;
 
@@ -66,10 +53,13 @@ function Projects() {
     )
   }
   return (
-    <div className="d-flex justify-content-center">
-      <ul>
+    <div>
+      <div className="d-flex flex-column align-items-center">
+          <h1>Projects</h1>
+          <Accordion>
         {projectList}
-      </ul>
+        </Accordion>
+      </div>
     </div>
   )
 }
