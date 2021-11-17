@@ -12,9 +12,9 @@ import { AbiItem } from 'web3-utils';
 
 import Projects from './pages/Projects';
 import AddProject from "./pages/AddProject";
+import Project from "./pages/Project";
 import CouncilProjectFunding from './contracts/CouncilProjectFunding.json';
 import getWeb3 from "./getWeb3";
-import { stat } from "fs";
 
 function Users() {
   return <h2>Users</h2>;
@@ -96,6 +96,8 @@ function App() {
               </Route>
               <Route path="/users">
                 <Users />
+              </Route>
+              <Route path="/project/:id" component={Project}>
               </Route>
               <Route path="/">
                 <Projects 

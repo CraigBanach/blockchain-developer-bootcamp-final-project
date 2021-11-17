@@ -54,8 +54,6 @@ Council-Project-Funding (root)
   * Access the user interface via ``http://localhost:3000``
   * Install Metamask in your browser. Connect your Metamask wallet and start interacting with the app
 
-
-
 ### Contracts
 * CouncilProjectFunding contract is compiled using Solidity compiler 0.8.9 and consists of the following key functions:
   * addProject

@@ -20,8 +20,8 @@ contract CouncilProjectFunding {
     _;
   }
 
-  modifier uintNotZero(uint num) {
-    require(num != 0);
+  modifier uintGreaterThanZero(uint num) {
+    require(num > 0);
     _;
   }
 
@@ -33,8 +33,8 @@ contract CouncilProjectFunding {
   ) public 
     stringNotEmpty(name) 
     stringNotEmpty(description) 
-    uintNotZero(fundingNeeded)
-    uintNotZero(thresholdBlock) 
+    uintGreaterThanZero(fundingNeeded)
+    uintGreaterThanZero(thresholdBlock) 
     returns (bool success) 
   {
     projects[projectCount] = Project(

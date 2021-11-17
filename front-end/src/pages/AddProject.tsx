@@ -65,7 +65,7 @@ const AddProject = ({
                     <Form.Label>Description</Form.Label>
                     <Form.Control 
                         as="textarea"
-                        placeholder="Enter project descrsiption"
+                        placeholder="Enter project description"
                         value={description}
                         onChange={event => setDescription(event.target.value)}
                         isValid={description.length > 0}

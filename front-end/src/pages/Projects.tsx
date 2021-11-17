@@ -1,6 +1,12 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import { Contract } from "web3-eth-contract";
 import Accordion from 'react-bootstrap/Accordion';
+import CSS from 'csstype';
+
+const buttonStyles: CSS.Properties = {
+  marginTop: '20px',
+};
 
 type Project = {
   currentFundLevel: number,
@@ -39,10 +45,15 @@ const Projects = ({
   let projectList = projects != null && projects.length > 0
     ? projects.map((project) => {
       return (
-        <Accordion.Item eventKey={project.id.toString()}>
+        <Accordion.Item eventKey={project.id.toString()} key={project.id.toString()}>
           <Accordion.Header>{project.name}</Accordion.Header>
           <Accordion.Body>
-            {project.description}
+            <div>
+              {project.description}
+            </div>
+            <div className="d-flex flex-row-reverse">
+              <Link className="btn btn-primary pull-right"  style={buttonStyles} to={`/project/${project.id}`}>View project</Link>
+            </div>
           </Accordion.Body>
         </Accordion.Item>
       )
@@ -57,12 +68,12 @@ const Projects = ({
     )
   }
   return (
-      <div className="d-flex flex-column align-items-center">
-        <h1>Projects</h1>
-        <Accordion>
-          {projectList}
-        </Accordion>
-      </div>
+    <Fragment>
+      <h2>Projects</h2>
+      <Accordion>
+        {projectList}
+      </Accordion>
+    </Fragment>
   )
 }
 
