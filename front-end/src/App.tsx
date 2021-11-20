@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  RouteComponentProps
 } from "react-router-dom";
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import Web3 from "web3";
@@ -12,7 +13,7 @@ import { AbiItem } from 'web3-utils';
 
 import Projects from './pages/Projects';
 import AddProject from "./pages/AddProject";
-import Project from "./pages/Project";
+import ProjectPage from "./pages/ProjectPage";
 import CouncilProjectFunding from './contracts/CouncilProjectFunding.json';
 import getWeb3 from "./getWeb3";
 
@@ -45,7 +46,7 @@ function App() {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
       // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       // Get the contract instance.
       const networkId = (await web3.eth.net.getId()).toString();
       // @ts-ignore
@@ -92,12 +93,20 @@ function App() {
                 <AddProject 
                   contract={state.contract}
                   account={state.accounts[0]}
+                  web3={state.web3}
                 />
               </Route>
               <Route path="/users">
                 <Users />
               </Route>
-              <Route path="/project/:id" component={Project}>
+              <Route path="/project/:id" component={(props: RouteComponentProps<{id: string}>) => 
+                <ProjectPage 
+                  contract={state.contract}
+                  account={state.accounts[0]}
+                  web3={state.web3}
+                  {...props}
+                />
+              }>
               </Route>
               <Route path="/">
                 <Projects 

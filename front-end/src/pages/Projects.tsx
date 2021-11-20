@@ -4,18 +4,11 @@ import { Contract } from "web3-eth-contract";
 import Accordion from 'react-bootstrap/Accordion';
 import CSS from 'csstype';
 
+import type { Project } from '../types/Project';
+
 const buttonStyles: CSS.Properties = {
   marginTop: '20px',
 };
-
-type Project = {
-  currentFundLevel: number,
-  description: string,
-  fundingNeeded: number,
-  id: number,
-  name: string,
-  thresholdBlock: number,
-}
 
 type Props = {
   contract?: Contract
@@ -52,7 +45,7 @@ const Projects = ({
               {project.description}
             </div>
             <div className="d-flex flex-row-reverse">
-              <Link className="btn btn-primary pull-right"  style={buttonStyles} to={`/project/${project.id}`}>View project</Link>
+              <Link className="btn btn-primary pull-right" style={buttonStyles} to={`/project/${project.id}`}>View project</Link>
             </div>
           </Accordion.Body>
         </Accordion.Item>

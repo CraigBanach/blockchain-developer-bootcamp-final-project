@@ -1,18 +1,19 @@
-import { ChangeEvent, Fragment, MouseEvent, useState } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 import { Contract } from "web3-eth-contract";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-
-import { USDC_DECIMALS } from '../helper';
+import Web3 from "web3";
 
 type Props = {
     contract?: Contract
     account: string
+    web3: Web3 | undefined,
 }
 
 const AddProject = ({
     contract,
-    account
+    account,
+    web3,
 }: Props) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -34,11 +35,12 @@ const AddProject = ({
             && fundingThreshold > 0
             && thresholdBlock > 0
             && contract
+            && web3
         ) {
             contract.methods.addProject(
                 name,
                 description,
-                fundingThreshold * (10 ** USDC_DECIMALS), // USDC has 6 decimals
+                web3.utils.toWei(fundingThreshold.toString(), 'ether'),
                 thresholdBlock
             ).send({
                 from: account
@@ -81,7 +83,7 @@ const AddProject = ({
                         isValid={fundingThreshold > 0} 
                     />
                     <Form.Text className="text-muted">
-                        Enter the amount of funds (in USDC) that will be required for the project to be triggered
+                        Enter the amount of funds (in ETH) that will be required for the project to be triggered
                     </Form.Text>
                 </Form.Group>
 
@@ -99,7 +101,7 @@ const AddProject = ({
                 </Form.Group>
 
                 <Button variant="primary" onClick={addProject}>
-                    Submit
+                    Add project
                 </Button>
             </Form>
         </Fragment>

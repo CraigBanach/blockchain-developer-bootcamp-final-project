@@ -1,0 +1,8 @@
+.label-holder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-wrapper {
+    margin: 20px;
+}
