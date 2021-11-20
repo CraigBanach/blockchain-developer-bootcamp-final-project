@@ -20,6 +20,10 @@ Once a project has been fully (or excessively) funded, the proposer can execute 
 
 If the project is not funded by the threshold date, the funds can no longer be deployed to the project address and can only be returned to the funders originating addresses. (Not implemented in current version)
 
+## Screencast link
+
+TODO
+
 ## How to run this project locally
 
 ### Prerequisites
@@ -76,3 +80,7 @@ Council-Project-Funding (root)
 +-- test
 |   +-- CouncilProjectFunding.test.js    
 ```
+
+## Public Ethereum wallet for certification
+
+`0xfAFC26F0Df9e7f201A2B4228F6eDE54d140ce289`
