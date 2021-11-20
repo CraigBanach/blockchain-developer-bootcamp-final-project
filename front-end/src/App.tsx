@@ -17,10 +17,6 @@ import ProjectPage from "./pages/ProjectPage";
 import CouncilProjectFunding from './contracts/CouncilProjectFunding.json';
 import getWeb3 from "./getWeb3";
 
-function Users() {
-  return <h2>Users</h2>;
-}
-
 type State = {
   storageValue?: number,
   web3?: Web3,
@@ -79,7 +75,6 @@ function App() {
               <Nav className="me-auto">
                 <Link className="nav-item nav-link" to="/">Projects</Link>
                 <Link className="nav-item nav-link" to="/addProject">Add Project</Link>
-                <Link className="nav-item nav-link" to="/users">Users</Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -95,9 +90,6 @@ function App() {
                   account={state.accounts[0]}
                   web3={state.web3}
                 />
-              </Route>
-              <Route path="/users">
-                <Users />
               </Route>
               <Route path="/project/:id" component={(props: RouteComponentProps<{id: string}>) => 
                 <ProjectPage 

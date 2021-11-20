@@ -27,10 +27,11 @@ function ProjectPage({
     const [loading, setLoading] = useState(true);
     const [project, setProject] = useState<Project>();
     const [fundsContributing, setFundsContributing] = useState(0);
+    const [processingTransaction, setProcessingTransaction] = useState(false);
 
     useEffect(() => {
         getProject();
-    }, [contract])
+    }, [contract, processingTransaction])
 
     async function getProject() {
         if (contract) {
@@ -43,16 +44,21 @@ function ProjectPage({
         setFundsContributing(Number(event.target.value));
     }
 
-    const addFunds = () => {
+    const addFunds = async () => {
         if (fundsContributing > 0 
             && contract
             && web3
         ) {
-            // TODO
-            contract.methods.fundProject(id).send({
-                from: account,
-                value: web3.utils.toWei(fundsContributing.toString(), 'ether'),
-            })
+            try {
+                setProcessingTransaction(true);
+                const transaction = await contract.methods.fundProject(id).send({
+                    from: account,
+                    value: web3.utils.toWei(fundsContributing.toString(), 'ether'),
+                });
+                await web3.eth.getTransactionReceipt(transaction.transactionHash);
+            } finally {
+                setProcessingTransaction(false);
+            }
         }
     }
 
@@ -107,7 +113,11 @@ function ProjectPage({
                             Enter the amount of ETH you would like to contribute to the project here
                         </Form.Text>
                     </Form.Group>
-                    <Button variant="primary" onClick={addFunds}>
+                    <Button 
+                        variant="primary" 
+                        onClick={addFunds}
+                        disabled={processingTransaction}     
+                    >
                         Fund project
                     </Button>
                 </div>
