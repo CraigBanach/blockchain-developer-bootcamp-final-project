@@ -15,6 +15,9 @@ contract("CouncilProjectFunding", (accounts) => {
         instance = await cpf.new();
     });
 
+    /**
+     * Checks that the state variables projectCount and the mapping of projects exists
+     */
     describe("State", () => {
         it("should have a projectCount", async () => {
             equal(typeof instance.projectCount, 'function', "the contract has no count of projects");
@@ -26,6 +29,10 @@ contract("CouncilProjectFunding", (accounts) => {
     });
 
     describe("addProject", () => {
+
+        /**
+         * Checks that a user can add a project
+         */
         it("should be able to add a project", async () => {
             await instance.addProject(name, description, fundingNeeded, thresholdBlock);
 
@@ -63,28 +70,47 @@ contract("CouncilProjectFunding", (accounts) => {
             );
         });
 
+        /**
+         * Checks that the function call fails if name is not supplied
+         */
         it("Should revert if name not supplied", async () => {
             await catchRevert(instance.addProject("", description, fundingNeeded, thresholdBlock));
         });
 
+        /**
+         * Checks that the function call fails if the description is not supplied
+         */
         it("Should revert if description not supplied", async () => {
             await catchRevert(instance.addProject(name, "", fundingNeeded, thresholdBlock));
         });
 
+        /**
+         * Checks that the function call fails if funding amount zero
+         */
         it("Should revert if funding amount is zero", async () => {
             await catchRevert(instance.addProject(name, description, 0, thresholdBlock));
         });
 
+        /**
+         * Checks that the function call fails if the threshold block is zero
+         */
         it("Should revert if threshold block is zero", async () => {
             await catchRevert(instance.addProject(name, description, fundingNeeded, 0));
         });
     });
 
     describe("fundProject", () => {
+
+        /**
+         * Ensures the function call fails if the project does not exist
+         */
         it("Cannot fund a project that doesn't exist", async () => {
             await catchRevert(instance.fundProject(0));
         })
         
+        /** 
+         * Ensures an account can fund a project that exists
+         */
         it("Can fund a project that exists", async () => {
             await instance.addProject(name, description, fundingNeeded, thresholdBlock);
             await instance.fundProject(0, {value: '1000000000000000000'});
@@ -98,6 +124,9 @@ contract("CouncilProjectFunding", (accounts) => {
             );
         })
 
+        /**
+         * Ensures that multiple accounts can fund a single project
+         */
         it("Multiple accounts can fund a project", async () => {
             await instance.addProject(name, description, fundingNeeded, thresholdBlock);
             await instance.fundProject(0, {value: '1000000000000000000'});

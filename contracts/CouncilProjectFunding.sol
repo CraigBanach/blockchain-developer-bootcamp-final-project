@@ -96,9 +96,9 @@ contract CouncilProjectFunding is Ownable{
     // TODO
   }
 
-  /// @notice Sends the funds back to the originating accounts of a cancelled project
+  /// @notice Allows a user to reclaim funds for cancelled projects
   /// @dev Should check if the threshold block has been breached
-  function returnUnusedFunds(uint projectId) public onlyOwner
+  function withdrawUnusedFunds(uint projectId) public
   projectExists(projectId)
   returns (bool success) {
     // TODO
