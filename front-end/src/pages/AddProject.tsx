@@ -75,7 +75,7 @@ const AddProject = ({
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="fundingThreshold">
-                    <Form.Label>Threshold for successful funding (USDC)</Form.Label>
+                    <Form.Label>Threshold for successful funding (ETH)</Form.Label>
                     <Form.Control 
                         type="number" 
                         value={fundingThreshold} 
