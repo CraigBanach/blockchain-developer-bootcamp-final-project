@@ -16,7 +16,7 @@ A project must have a threshold date, after which funds are returned to the cont
 
 Any user can join and fund a project by sending Eth into the contract, specifying a project.
 
-Once a project has been fully (or excessively) funded, the proposer can execute the initiation of said project, and the funds will be deployed to the project address. (Not implemented in current version)
+Once a project has been fully (or excessively) funded, the contract owner can execute the initiation of said project, and the funds will be deployed to the project address. (Not implemented in current version)
 
 If the project is not funded by the threshold date, the funds can no longer be deployed to the project address and can only be returned to the funders originating addresses. (Not implemented in current version)
 
@@ -36,6 +36,7 @@ TODO
 
 * Start `ganache-cli` (project is configured to expect ganache running on port 8454, this can be changed in truffle-config.js)
 * From the root directory;
+  * use npm to install dependencies `npm install`
   * contract tests can be run with `truffle test`
   * the contract can be migrated with `truffle migrate`
 

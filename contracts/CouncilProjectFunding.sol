@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 /// @title Contract to propose and fund projects of any kind
 /// @author Craig Banach https://github.com/CraigBanach
 /// @notice Allows any Ethereum address to propose or fund a project
 /// @dev Contract is current a WIP and not all desired functionality is implemented
-contract CouncilProjectFunding {
+contract CouncilProjectFunding is Ownable{
   
   /// @notice A mapping of the proposed projects
   mapping(uint => Project) public projects;
@@ -81,9 +83,9 @@ contract CouncilProjectFunding {
   }
 
   /// @notice Deploys the project funds to the project address if successfully funded and before the threshold block
-  function deployProjectFunds(uint projectId)
+  function deployProjectFunds(uint projectId) public onlyOwner
   projectExists(projectId)
-  public returns (bool success) {
+  returns (bool success) {
     // TODO: Check if canDeployFunds()
     // TODO: Send funds to project address
   }
@@ -94,9 +96,9 @@ contract CouncilProjectFunding {
     // TODO
   }
 
-  /// @notice Allows a user to reclaim their funds if the project is cancelled
+  /// @notice Sends the funds back to the originating accounts of a cancelled project
   /// @dev Should check if the threshold block has been breached
-  function retrieveUnusedFunds(uint projectId) public 
+  function returnUnusedFunds(uint projectId) public onlyOwner
   projectExists(projectId)
   returns (bool success) {
     // TODO
