@@ -2,7 +2,7 @@
 
 ## Access Control Design Patterns
 
-- `Ownable` design pattern used in two functions: `deployProjectFunds()` and `returnUnusedFunds`.
+- `Ownable` design pattern used in the function `deployProjectFunds()`.
 
 ## Inheritance and Interfaces
 
