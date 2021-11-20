@@ -49,9 +49,12 @@ contract CouncilProjectFunding {
     return true;
   }
 
-
   function fundProject(uint projectId) public payable returns (bool success) {
+    require(projectId < projectCount, "The supplied project has not been created");
 
+    projects[projectId].currentFundLevel += msg.value;
+
+    return true;
   }
 
   function deployProjectFunds(uint projectId) public returns (bool success) {
