@@ -3,6 +3,7 @@ const path = require("path");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const mnemonicPhrase = process.env.GOERLI_MNEMONIC;
+const goerliProviderUrl = process.env.GOERLI_INFURA_URL;
 
 module.exports = {
   contracts_build_directory: path.join(__dirname, "front-end/src/contracts"),
@@ -17,7 +18,7 @@ module.exports = {
         mnemonic: {
           phrase: mnemonicPhrase
         },
-        providerOrUrl: 'https://goerli.infura.io/v3/1f8dfa07703241868d0ef130d8cb9f64'
+        providerOrUrl: goerliProviderUrl
       }),
       network_id: '5',
       gas: 4465030,

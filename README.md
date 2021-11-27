@@ -48,6 +48,7 @@ https://www.loom.com/share/a00188c65f8b46a4b6d20bad647d2e7b
 
 * Rename the `.env.sample` file to `.env`
 * Populate the `GOERLI_MNEMONIC` variable in the `.env` file with your truffle mnemonic
+* Populate the `GOERLI_INFURA_URL` variable with a valid Goerli Infura URL from Infura
 * run `truffle migrate --network goerli`
 
 ## Front end
