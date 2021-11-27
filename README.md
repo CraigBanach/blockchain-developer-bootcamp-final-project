@@ -2,7 +2,11 @@
 
 ## Deployed version url
 
-TODO
+### Web-app
+https://frosty-wescoff-f0c70a.netlify.app/
+
+### Smart Contract (Goerli)
+[0xc7Ac37903CA60B0d9ED361c11cca2eC1b289EE77](https://goerli.etherscan.io/address/0xc7Ac37903CA60B0d9ED361c11cca2eC1b289EE77)
 
 ## Introduction
 
@@ -32,7 +36,7 @@ TODO
 * Truffle and Ganache
 * npm
 
-### Contracts
+## Contracts
 
 * Start `ganache-cli` (project is configured to expect ganache running on port 8454, this can be changed in truffle-config.js)
 * From the root directory;
@@ -40,7 +44,7 @@ TODO
   * contract tests can be run with `truffle test`
   * the contract can be migrated with `truffle migrate`
 
-### Front end
+## Front end
 
 The front end for this project is a react-based web app in the front-end directory.
 Carry out the following steps to run the front end.
@@ -50,7 +54,7 @@ Carry out the following steps to run the front end.
 * `npm start`
 * Open `http://localhost:3000` in a metamask compatible browser
 
-### Expected workflow
+## Expected workflow
 
 1. An ethereum address will propose a project using the `Add Project` page
 2. A list of the projects can be viewed at the `Projects` page
@@ -59,7 +63,7 @@ Carry out the following steps to run the front end.
 5. On the dedicated project page, an address can fund the project with Ether using the input and button to send ether into the contract and apply it towards the project, do this now.
 6. After the transaction has been confirmed, the current funding level of the project will be updated to reflect the sent funds.
 
-### Additional future workflow (Not implemented in current version)
+## Additional future workflow (Not implemented in current version)
 
 * After the block specified has been reached, the project will be cancelled and all accounts will be able to withdraw their sent funds. This will require tracking which accounts funded which project to be able to return funds.
 * After the funding needed threshold has been reached, the proposer will have the ability to deploy the funds for the purpose of completing the project. This will require capturing the desired project address during project creation.
