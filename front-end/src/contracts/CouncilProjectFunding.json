@@ -9729,10 +9729,36 @@
       "links": {},
       "address": "0x4f37690f0b56203120F1836Db1b8feFb1879BC29",
       "transactionHash": "0x86ff52b941c917ad7e36b96e175b59ff03bfd97c48e7b154a8a0b19347213166"
+    },
+    "1638015725488": {
+      "events": {
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x1ab8dBeb6847315a100912CFfAe1BC14CcD433b2",
+      "transactionHash": "0xe016527fd861663ab50582a7efa732dc3df46ad4bb8cab21fb2fc6ac3dc10cab"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-27T12:52:15.933Z",
+  "updatedAt": "2021-11-27T13:36:44.469Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Craig Banach https://github.com/CraigBanach",

@@ -26,7 +26,7 @@ If the project is not funded by the threshold date, the funds can no longer be d
 
 ## Screencast link
 
-TODO
+https://www.loom.com/share/a00188c65f8b46a4b6d20bad647d2e7b
 
 ## How to run this project locally
 
@@ -43,6 +43,12 @@ TODO
   * use npm to install dependencies `npm install`
   * contract tests can be run with `truffle test`
   * the contract can be migrated with `truffle migrate`
+
+### Deploying to Goerli testnet
+
+* Rename the `.env.sample` file to `.env`
+* Populate the `GOERLI_MNEMONIC` variable in the `.env` file with your truffle mnemonic
+* run `truffle migrate --network goerli`
 
 ## Front end
 

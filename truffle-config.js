@@ -2,7 +2,7 @@ require('dotenv').config();
 const path = require("path");
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-const mnemonicPhrase = process.env.KOVAN_MNEMONIC;
+const mnemonicPhrase = process.env.GOERLI_MNEMONIC;
 
 module.exports = {
   contracts_build_directory: path.join(__dirname, "front-end/src/contracts"),
